@@ -11,7 +11,7 @@ end
 local sPath = shell.resolve( tArgs[1] )
 local bReadOnly = fs.isReadOnly( sPath )
 if fs.exists( sPath ) and fs.isDir( sPath ) then
-    speaker play ErrorR.dfpwm
+    speaker.playSound("ErrorR.dfpwm")
     print( "Cannot edit a directory." )
     return
 end
@@ -102,7 +102,7 @@ local function save( _sPath )
                 file.write( sLine .. "\n" )
             end
         else
-		speaker play ErrorR.dfpwm
+	    speaker.playSound("ErrorR.dfpwm")
             error( "Failed to open ".._sPath )
         end
     end
@@ -295,7 +295,7 @@ local tMenuFuncs = {
             if ok then
                 sStatus="Saved to "..sPath
             else
-		    speaker play ErrorR.dfpwm
+		speaker.playSound("ErrorR.dfpwm")
                 sStatus="Error saving to "..sPath
             end
         end
@@ -366,7 +366,7 @@ local tMenuFuncs = {
         term.redirect( screenTerminal )
         if not ok then
             print( error )
-		speaker play ErrorR.dfpwm
+	    speaker.playSound("ErrorR.dfpwm")
         end
         
         while not printer.endPage() do
@@ -395,12 +395,12 @@ local tMenuFuncs = {
                 shell.switchTab( nTask )
             else
                 sStatus="Error starting Task"
-		    speaker play ErrorR.dfpwm
+		speaker.playSound("ErrorR.dfpwm")
             end
             fs.delete( sTempPath )
         else
             sStatus="Error saving to "..sTempPath
-		speaker play ErrorR.dfpwm
+	    speaker.playSound("ErrorR.dfpwm")
         end
         redrawMenu()
     end
