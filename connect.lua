@@ -3,29 +3,29 @@ local speaker = peripheral.find("speaker")
 --/ Redhack Access Tool / Reactified /--
 if not net then
     printError("Not running in Redhack environment.")
-    speaker play ErrorR.dfpwm
+    speaker.playSound("ErrorR.dfpwm")
     return
 end
 if not net.ping then
     printError("System not online, reboot with modem.")
-    speaker play ErrorR.dfpwm
+    speaker.playSound("ErrorR.dfpwm")
     return
 end
 if cfg.sec.ghost then
     printError("Can't hack while in ghost mode.")
-    speaker play ErrorR.dfpwm
+    speaker.playSound("ErrorR.dfpwm")
     return
 end
 local args = {...}
 if not args[1] then
     printError("Usage: connect <IP>")
-    speaker play ErrorR.dfpwm
+    speaker.playSound("ErrorR.dfpwm")
     return
 end
 local label = net.ping(args[1])
 if not label then
     printError("Invalid target.")
-    speaker play ErrorR.dfpwm
+    speaker.playSound("ErrorR.dfpwm")
     return
 end
 local normal = term.getTextColor()
@@ -40,7 +40,7 @@ net.send(args[1],{packet = "probe"})
 local ip,data = net.receive(1,args[1])
 if not ip then
     printError("Failed.")
-    speaker play ErrorR.dfpwm
+    speaker.playSound("ErrorR.dfpwm")
     return
 end
 term.setTextColor(fancy)
@@ -54,7 +54,7 @@ print(label)
 sleep(0.1)
 if not data.hash then
     printError("Target is in Ghost Mode")
-    speaker play ErrorR.dfpwm
+    speaker.playSound("ErrorR.dfpwm")
     return
 end
 term.setTextColor(normal)
@@ -135,7 +135,7 @@ net.send(args[1],{packet = "solve",solve=solve})
 local ip,data = net.receive(1,args[1])
 if not ip then
     printError("Failed.")
-    speaker play ErrorR.dfpwm
+    speaker.playSound("ErrorR.dfpwm")
     return
 end
 if data.verified then
@@ -143,7 +143,7 @@ if data.verified then
     print("Accepted!")
 else
     printError("Denied.")
-    speaker play ErrorR.dfpwm
+    speaker.playSound("ErrorR.dfpwm")
     return
 end
 print("Interactive Remote Lua")
@@ -163,7 +163,7 @@ while true do
     local ip,data = net.receive(5,args[1])
     if not ip then
         printError("Timed out.")
-        speaker play ErrorR.dfpwm
+        speaker.playSound("ErrorR.dfpwm")
     else
         if data.result then
             term.setTextColor(fancy)
